@@ -76,7 +76,7 @@ export default function EditModal({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<Users> = (data: Users): void => {
+  const onSubmit: SubmitHandler<Users> = (data): void => {
     EditMutation.mutate(data);
   };
 
