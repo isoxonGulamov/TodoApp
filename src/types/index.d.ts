@@ -1,7 +1,7 @@
 import { ModalProps } from "@nextui-org/react";
 
 interface Users {
-
+ id:number
   name: string;
   username: string;
   contact: string;
@@ -9,6 +9,16 @@ interface Users {
   email: string;
   address: string;
 }
+
+interface UsersHandle {
+  name: string;
+  username: string;
+  contact: string;
+  roleName: string;
+  email: string;
+  address: string;
+}
+
 
 interface ModelPropsType  {
   isOpen: boolean;

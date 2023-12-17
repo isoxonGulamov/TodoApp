@@ -16,7 +16,7 @@ import * as yup from "yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Users } from "@/src/types";
+import { Users, UsersHandle } from "@/src/types";
 import LoadingComponent from "./LoadingComponent";
 import { ToastContainer } from "react-toastify";
 import { Roles } from "@/src/utils/data";
@@ -44,7 +44,7 @@ export default function EditModal({
   const [Loading, setLoading] = React.useState(false);
 
   const EditMutation = useMutation({
-    mutationFn: (data: Users) => {
+    mutationFn: (data: UsersHandle) => {
       return fetch(
         `https://655ef5e2879575426b443c29.mockapi.io/api/users/${self?.id}`,
         {
@@ -76,7 +76,7 @@ export default function EditModal({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit: SubmitHandler<Users> = (data): void => {
+  const onSubmit: SubmitHandler<UsersHandle> = (data:UsersHandle): void => {
     EditMutation.mutate(data);
   };
 

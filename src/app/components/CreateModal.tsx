@@ -20,7 +20,7 @@ import * as yup from "yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Users } from "@/src/types";
+import { Users, UsersHandle } from "@/src/types";
 import LoadingComponent from "./LoadingComponent";
 
 const validationSchema = yup.object().shape({
@@ -49,7 +49,7 @@ export default function CreateModal({
   const [Loading, setLoading] = React.useState(false);
 
   const CreateMutation = useMutation({
-    mutationFn: (data: Users) => {
+    mutationFn: (data: UsersHandle) => {
       return fetch("https://655ef5e2879575426b443c29.mockapi.io/api/users", {
         method: "POST",
         headers: {
@@ -79,7 +79,7 @@ export default function CreateModal({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit:SubmitHandler<Users> = (data: Users): void => {
+  const onSubmit:SubmitHandler<UsersHandle> = (data: UsersHandle): void => {
     // Data joylash
     CreateMutation.mutate(data);
   };
