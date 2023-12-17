@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import { MailIcon } from "./Icons";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Users } from "@/src/types";
@@ -76,8 +76,7 @@ export default function EditModal({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: Users, id: number) => {
-    // Data joylash
+  const onSubmit: SubmitHandler<Users> = (data: Users): void => {
     EditMutation.mutate(data);
   };
 

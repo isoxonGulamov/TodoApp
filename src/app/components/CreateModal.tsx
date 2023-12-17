@@ -17,7 +17,7 @@ import {
 import { Roles } from "@/src/utils/data";
 import { MailIcon } from "./Icons";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Users } from "@/src/types";
@@ -79,7 +79,7 @@ export default function CreateModal({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: Users):void => {
+  const onSubmit:SubmitHandler<Users> = (data: Users): void => {
     // Data joylash
     CreateMutation.mutate(data);
   };

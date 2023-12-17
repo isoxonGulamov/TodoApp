@@ -86,7 +86,7 @@ export default function TableComponent() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          queryClient.invalidateQueries("users");
+          queryClient.invalidateQueries({ queryKey: ["users"] });
         });
     },
   });
