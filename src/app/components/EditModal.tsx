@@ -57,7 +57,7 @@ export default function EditModal({
       )
         .then((res) => res.json())
         .then((data) => {
-          queryClient.invalidateQueries("users");
+          queryClient.invalidateQueries({ queryKey: ["users"] });
           if (data) {
             setLoading(true);
             setTimeout(() => {

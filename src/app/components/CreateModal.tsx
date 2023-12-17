@@ -60,7 +60,7 @@ export default function CreateModal({
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          queryClient.invalidateQueries("users");
+          queryClient.invalidateQueries({ queryKey: ["users"] });
           if (data) {
             setLoading(true);
             setTimeout(() => {
