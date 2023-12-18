@@ -14,11 +14,15 @@ export const UserModalComponent = ({
   onOpenChange,
   onOpen,
   self,
+  userModal,
+  setUserModal
 }: {
   isOpen: boolean;
   onOpenChange: () => void;
   onOpen: () => void;
   self: Users | undefined;
+  userModal:boolean
+  setUserModal:any
 }) => {
   return (
     <>
@@ -115,7 +119,7 @@ export const UserModalComponent = ({
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button onPress={onClose}>Back</Button>
+                <Button onPress={onClose} onClick={()=>setUserModal(false)}>Back</Button>
               </ModalFooter>
             </>
           )}

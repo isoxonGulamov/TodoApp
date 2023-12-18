@@ -7,6 +7,7 @@ const LoadingComponent = ({ onClose,loadMessage ,message}: any) => {
 
     setTimeout(() => {
       onClose();
+    
       toast.dismiss();
         if (message) {
                 toast.success(`${message}`, {

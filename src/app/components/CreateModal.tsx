@@ -39,11 +39,13 @@ const validationSchema = yup.object().shape({
 export default function CreateModal({
   isOpen,
   onOpenChange,
-  onOpen
+  onOpen,
+  isSetModal
 }: {
   isOpen: boolean,
   onOpenChange: () => void,
-  onOpen:()=>void
+  onOpen:()=>void,
+  isSetModal:any
 }) {
   const queryClient = useQueryClient();
   const [Loading, setLoading] = React.useState(false);
@@ -101,6 +103,7 @@ export default function CreateModal({
                   <LoadingComponent
                     loadMessage={"Creating new staff"}
                     onClose={onClose}
+                    isSetModal={isSetModal}
                   />
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)} className="gap-2">
@@ -196,10 +199,18 @@ export default function CreateModal({
                       </Checkbox>
                     </div>
                     <ModalFooter>
-                      <Button color="danger" variant="flat" onPress={onClose}>
+                      <Button
+                        onClick={() => isSetModal(false)}
+                        color="danger"
+                        variant="flat"
+                        onPress={onClose}
+                      >
                         Close
                       </Button>
-                      <Button type="submit" color="primary">
+                      <Button
+                        type="submit"
+                        color="primary"
+                      >
                         Add
                       </Button>
                     </ModalFooter>

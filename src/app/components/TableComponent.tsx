@@ -31,7 +31,7 @@ import { EditIcon } from "./Icons";
 import { useDisclosure } from "@nextui-org/react";
 import { columns, users, statusOptions } from "../../utils/data";
 import { capitalize } from "../../utils/Capitalize";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, QueryClient } from "@tanstack/react-query";
 import CreateModal from "./CreateModal";
 import { Users } from "@/src/types";
 import EditModal from "./EditModal";
@@ -65,11 +65,9 @@ export default function TableComponent() {
   const [userModal, setUserModal] = useState(false);
   const queryClient = useQueryClient();
 
-  const { isLoading, error, data, refetch } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery<Users, Error, any, string[]>({
     queryKey: ["users"],
     queryFn: fetchHero,
-    cacheTime: 600000,
-    staleTime: 30000,
   });
 
   const DeleteMutation = useMutation({
@@ -99,6 +97,7 @@ export default function TableComponent() {
 
   const ViewUser = (id: number, user: Users) => {
     setUserModal(true);
+    isSetModal(false)
     setSelf(user);
     onOpen();
   };
@@ -330,7 +329,7 @@ export default function TableComponent() {
             </Dropdown>
             <Button
               onPress={onOpen}
-              onClick={() => isSetModal(true)}
+              onClick={() => {isSetModal(true);setUserModal(false)}}
               color="primary"
               endContent={<PlusIcon />}
             >
@@ -451,16 +450,17 @@ export default function TableComponent() {
           )}
         </TableBody>
       </Table>
-      {isModal && !userModal  ?  (
+      {isModal && ! userModal ? (
         <CreateModal
           isOpen={isOpen}
           onOpen={onOpen}
+          isSetModal={isSetModal}
           onOpenChange={onOpenChange}
         />
       ) : (
         ""
       )}
-      {!isModal && !userModal ? (
+      {!isModal && userModal == false ? (
         <EditModal
           isOpen={isOpen}
           self={self}
@@ -471,10 +471,12 @@ export default function TableComponent() {
         ""
       )}
 
-      {userModal ? (
+      {userModal && ! isModal ? (
         <UserModalComponent
           isOpen={isOpen}
           self={self}
+          userModal={userModal}
+          setUserModal={setUserModal}
           onOpen={onOpen}
           onOpenChange={onOpenChange}
         />
