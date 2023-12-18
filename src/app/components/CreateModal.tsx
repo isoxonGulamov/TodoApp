@@ -202,15 +202,12 @@ export default function CreateModal({
                       <Button
                         onClick={() => isSetModal(false)}
                         color="danger"
-                        variant="flat"
+                        variant="ghost"
                         onPress={onClose}
                       >
                         Close
                       </Button>
-                      <Button
-                        type="submit"
-                        color="primary"
-                      >
+                      <Button type="submit" variant="shadow" color="primary">
                         Add
                       </Button>
                     </ModalFooter>
