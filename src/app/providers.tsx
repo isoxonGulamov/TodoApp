@@ -6,13 +6,14 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { useTheme } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const queryClient = new QueryClient({
+const queryClientOptions:any = {
   defaultOptions: {
     queries: {
       cacheTime: 600000,
     },
   },
-});
+};
+const queryClient = new QueryClient(queryClientOptions);
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const { theme, setTheme } = useTheme();
