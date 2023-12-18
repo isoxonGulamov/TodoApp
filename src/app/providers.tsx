@@ -28,12 +28,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
     }
   }, [setTheme]);
 
+
   
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <NextUIProvider>
-          <NextThemesProvider defaultTheme="dark">
+          <NextThemesProvider
+          >
             {children}
           </NextThemesProvider>
         </NextUIProvider>

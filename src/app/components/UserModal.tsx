@@ -119,7 +119,7 @@ export const UserModalComponent = ({
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button onPress={onClose} onClick={()=>setUserModal(false)}>Back</Button>
+                <Button onPress={onClose} variant="faded" onClick={()=>setUserModal(false)}>Back</Button>
               </ModalFooter>
             </>
           )}

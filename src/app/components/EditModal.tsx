@@ -201,10 +201,10 @@ export default function EditModal({
                       </Checkbox>
                     </div>
                     <ModalFooter>
-                      <Button color="danger" variant="flat" onPress={onClose}>
+                      <Button color="danger" variant="ghost" onPress={onClose}>
                         Close
                       </Button>
-                      <Button type="submit" color="primary">
+                      <Button variant="shadow" type="submit" color="primary">
                         Update
                       </Button>
                     </ModalFooter>

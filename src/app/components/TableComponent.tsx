@@ -31,13 +31,18 @@ import { EditIcon } from "./Icons";
 import { useDisclosure } from "@nextui-org/react";
 import { columns, users, statusOptions } from "../../utils/data";
 import { capitalize } from "../../utils/Capitalize";
-import { useQuery, useMutation, useQueryClient, QueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+} from "@tanstack/react-query";
 import CreateModal from "./CreateModal";
 import { Users } from "@/src/types";
 import EditModal from "./EditModal";
 import { UserModalComponent } from "./UserModal";
 import { Spinner } from "@nextui-org/react";
-
+import { useTheme } from "next-themes";
 const fetchHero = () => {
   return fetch("https://655ef5e2879575426b443c29.mockapi.io/api/users", {
     method: "GET",
@@ -60,12 +65,19 @@ type User = (typeof users)[0];
 
 export default function TableComponent() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { theme, setTheme } = useTheme();
+  
   const [isModal, isSetModal] = useState(false);
   const [self, setSelf] = useState<Users>();
   const [userModal, setUserModal] = useState(false);
   const queryClient = useQueryClient();
 
-  const { isLoading, error, data, refetch } = useQuery<Users, Error, any, string[]>({
+  const { isLoading, error, data, refetch } = useQuery<
+    Users,
+    Error,
+    any,
+    string[]
+  >({
     queryKey: ["users"],
     queryFn: fetchHero,
   });
@@ -97,10 +109,11 @@ export default function TableComponent() {
 
   const ViewUser = (id: number, user: Users) => {
     setUserModal(true);
-    isSetModal(false)
+    isSetModal(false);
     setSelf(user);
     onOpen();
   };
+
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([])
@@ -215,6 +228,7 @@ export default function TableComponent() {
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span
+              
                 onClick={() => {
                   DeleteMutation.mutate(user?.id);
                   setUserModal(false);
@@ -279,6 +293,10 @@ export default function TableComponent() {
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
+            <div className="flex gap-3">
+                <Button color="secondary" variant="flat" onClick={() => setTheme("light")}>Light</Button>
+                <Button color="secondary" variant="flat" onClick={() => setTheme("dark")}>Dark</Button>
+            </div>
             <Dropdown>
               <DropdownTrigger className=" sm:flex">
                 <Button
@@ -329,8 +347,12 @@ export default function TableComponent() {
             </Dropdown>
             <Button
               onPress={onOpen}
-              onClick={() => {isSetModal(true);setUserModal(false)}}
+              onClick={() => {
+                isSetModal(true);
+                setUserModal(false);
+              }}
               color="primary"
+              variant="shadow"
               endContent={<PlusIcon />}
             >
               Add New
@@ -368,7 +390,7 @@ export default function TableComponent() {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="py-2 px-2 flex justify-between items-center">
-        <span className="w-[30%] text-small text-default-400">
+        <span className="w-[30%] text-small">
           {selectedKeys === "all"
             ? "All items selected"
             : `${selectedKeys.size} of ${filteredItems.length} selected`}
@@ -404,11 +426,12 @@ export default function TableComponent() {
     );
   }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
 
-  if (isLoading) return (
-    <div className="text-center items-center mt-[250px] mr-auto ml-auto">
-      <Spinner label="Loading ..." color="success" labelColor="success" />
-    </div>
-  );
+  if (isLoading)
+    return (
+      <div className="text-center items-center mt-[250px] mr-auto ml-auto">
+        <Spinner label="Loading ..." color="success" labelColor="success" />
+      </div>
+    );
   if (error) return "An error has occurred: " + error.message;
 
   return (
@@ -450,7 +473,7 @@ export default function TableComponent() {
           )}
         </TableBody>
       </Table>
-      {isModal && ! userModal ? (
+      {isModal && !userModal ? (
         <CreateModal
           isOpen={isOpen}
           onOpen={onOpen}
@@ -471,7 +494,7 @@ export default function TableComponent() {
         ""
       )}
 
-      {userModal && ! isModal ? (
+      {userModal && !isModal ? (
         <UserModalComponent
           isOpen={isOpen}
           self={self}

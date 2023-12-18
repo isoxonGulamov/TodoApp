@@ -36,7 +36,7 @@ const config: Config = {
             background: "#000000",
             foreground: "#ECEDEE",
             primary: {
-              foreground: "#FFFFFF",
+              foreground: "#000",
               DEFAULT: "#ffffff",
             },
           },
