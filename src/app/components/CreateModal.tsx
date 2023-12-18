@@ -45,7 +45,7 @@ export default function CreateModal({
   isOpen: boolean,
   onOpenChange: () => void,
   onOpen:()=>void,
-  isSetModal:any
+  isSetModal:Function
 }) {
   const queryClient = useQueryClient();
   const [Loading, setLoading] = React.useState(false);
